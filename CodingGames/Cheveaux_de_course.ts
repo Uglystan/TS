@@ -16,5 +16,6 @@ for (let i = 0; i < N; i++) {
 
 piTab.sort((a : number, b : number): number => {return a -b})
 let piDiffTab : Array<number> = piTab.map(diff)
+piDiffTab.pop()
 
 console.log(Math.min(...piDiffTab))
