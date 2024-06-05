@@ -1,14 +1,33 @@
-let addTaskButton : HTMLElement | null = document.getElementById("addTaskButton")
+let addTaskButton = document.getElementById("addTaskButton")
 
-let taskList : HTMLElement | null = document.getElementById("taskList")
+let taskList = document.getElementById("taskList")
 
-let taskInput :HTMLElement | null = document.getElementById("taskInput")
+let taskInput = document.getElementById("taskInput") as HTMLInputElement
 
-if (taskInput)
-addTaskButton?.addEventListener("click", (event) => {
-	let taskDiv : HTMLElement = document.createElement("div")
-	let task : HTMLElement = document.createElement("p")
-	let deleteTask : HTMLElement = document.createElement("button")
+if (taskInput.value !== "") {
+	addTaskButton?.addEventListener("click", (event) => {
+		let taskDiv : HTMLElement = document.createElement("div")
+		let task : HTMLElement = document.createElement("li")
+		let deleteTask : HTMLElement = document.createElement("button")
+		let doneTask : HTMLElement = document.createElement("button")
+		
+		task.textContent = taskInput.value
+		taskInput.value = ""
 
-	task.textContent = taskInput?.textContent as string
-})
+		doneTask.textContent = "Done"
+		doneTask.addEventListener("click", (event) => {
+			task.classList.toggle("completed")
+		})
+
+		deleteTask.textContent = "Supprimer"
+		deleteTask.addEventListener("click", (event) => {
+			taskDiv.remove()
+		})
+
+		taskDiv.appendChild(task)
+		taskDiv.appendChild(deleteTask)
+		taskDiv.appendChild(doneTask)
+
+		taskList?.appendChild(taskDiv)
+	})
+}
